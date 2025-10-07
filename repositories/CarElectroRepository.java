@@ -2,55 +2,58 @@ package repositories;
 
 import interfaces.Repository;
 import models.ElectroCar;
-import java.util.Map;
 import java.util.List;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.HashMap;
 
-public class CarElectroRepository implements Repository<ElectroCar, String>{
-    Map<String, ElectroCar> electroCars = new HashMap<>();
-    int nextId = 1;
+public class CarElectroRepository implements Repository<ElectroCar, Integer>{
+    private List<ElectroCar> cars = new ArrayList<>();
 
     @Override
     public ElectroCar save(ElectroCar car) {
-        String id = "Electro" + nextId++;
-        electroCars.put(id, car);
+        cars.add(car);
         return car;
     }
 
     @Override
     public List<ElectroCar> saveAll(Collection<ElectroCar> entities) {
-        List<ElectroCar> savedCars = new ArrayList<>();
-        for (ElectroCar car: entities){
-            savedCars.add(save(car));
-        }
-        return savedCars;
+        cars.addAll(entities);
+        return new ArrayList<>(entities);
     }
 
     @Override
-    public Optional<ElectroCar> findById(String id) {
-        return Optional.ofNullable(electroCars.get(id));
+    public Optional<ElectroCar> findById(Integer id) {
+        return Optional.ofNullable(cars.get(id));
     }
 
     @Override
-    public void deleteById(String id) {
-      electroCars.remove(id);
+    public void deleteById(Integer id) {
+        cars.remove(id.intValue());
+
     }
 
     @Override
     public void deleteAll() {
-      electroCars.clear();
+        cars.clear();
+
     }
 
     @Override
     public long count() {
-        return electroCars.size();
+        return cars.size();
     }
 
     @Override
-    public boolean existById(String id) {
-        return electroCars.containsKey(id);
+    public boolean existById(Integer id) {
+        if (id < cars.size()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public void deleteAll(int i) {
     }
 }

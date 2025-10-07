@@ -46,22 +46,22 @@ public class Main {
         System.out.println("Всего машин: " + CarRepository.count());
         System.out.println("Всего электромобилей: " + ElectroRepository.count());
 
-        Optional<ElectroCar> foundElectroCar = ElectroRepository.findById("Electro");
+        Optional<ElectroCar> foundElectroCar = ElectroRepository.findById(0);
         if (foundElectroCar.isPresent()){
             System.out.println("Найден электромобиль: " + foundElectroCar.get());
 
-            Optional<Car> foundCar = CarRepository.findById("Car");
+            Optional<Car> foundCar = CarRepository.findById(1);
             if (foundCar.isPresent()){
                 System.out.println("Найдена машина: " + foundCar.get());
 
-                boolean exists = ElectroRepository.existById("Electro");
+                boolean exists = ElectroRepository.existById(0);
                 System.out.println("Есть ли электромобиль Electro" + exists);
 
-                boolean notExits = ElectroRepository.existById("Electro_1");
-                System.out.println("Есть ли эдектромобиль Electro_1" + notExits);
+                boolean notExits = ElectroRepository.existById(5);
+                System.out.println("Есть ли электромобиль Electro_1" + notExits);
 
                 System.out.println("Машин было:" + CarRepository.count());
-                CarRepository.deleteById("Car");
+                CarRepository.deleteById(0);
                 System.out.println("Машин стало: " + CarRepository.count());
 
                 System.out.println("Электомобилей было: " + ElectroRepository.count());
